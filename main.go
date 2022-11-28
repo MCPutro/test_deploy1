@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/gofiber/fiber/v2"
+	"os"
 )
 
 func main() {
@@ -12,7 +13,12 @@ func main() {
 		return c.SendString("Hello, World!")
 	})
 
-	err := app.Listen(":3000")
+	PORT := os.Getenv("PORT")
+	if PORT == "" {
+		PORT = "9999"
+	}
+
+	err := app.Listen(":" + PORT)
 	if err != nil {
 		fmt.Println(err)
 	}
